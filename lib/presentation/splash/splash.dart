@@ -13,7 +13,10 @@ class SplashView extends StatefulWidget {
 class _SplashViewState extends State<SplashView> {
   Timer? _timer;
   _startDelay() {
-    _timer = Timer(Duration(seconds: 2), _goNext);
+    _timer = Timer(
+      const Duration(seconds: 2),
+      _goNext,
+    );
   }
 
   _goNext() {
@@ -36,10 +39,8 @@ class _SplashViewState extends State<SplashView> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorManager.primary,
-      body: const Center(
-        child: Image(
-          image: AssetImage(ImageAssets.splashLogo),
-        ),
+      body: Center(
+        child: Image.asset(ImageAssets.splashLogo),
       ),
     );
   }
