@@ -3,14 +3,19 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mvvmmanualsdk12/presentation/onboarding/onboarding_shelf.dart';
 import 'package:mvvmmanualsdk12/presentation/resources/resources_shelf.dart';
 
-
 class GetBottomSheetWidget extends StatelessWidget {
-  final List<SliderObject> list;
+  final Function nextIndex;
+  final Function previousIndex;
+  final PageController pageController;
+  final int listLength;
   final int currentIndex;
   const GetBottomSheetWidget({
     Key? key,
-    required this.list,
+    required this.listLength,
     required this.currentIndex,
+    required this.pageController,
+    required this.nextIndex,
+    required this.previousIndex,
   }) : super(key: key);
 
   @override
@@ -26,12 +31,20 @@ class GetBottomSheetWidget extends StatelessWidget {
               width: AppSize.s20,
               child: SvgPicture.asset(ImageAssets.leftArrow),
             ),
-            onTap: () {},
+            onTap: () {
+              pageController.animateToPage(
+                previousIndex(),
+                duration: Duration(
+                  milliseconds: DurationConsts.d300,
+                ),
+                curve: Curves.bounceInOut,
+              );
+            },
           ),
         ),
         Row(
           children: [
-            for (int i = 0; i < list.length; i++)
+            for (int i = 0; i < listLength; i++)
               Padding(
                 padding: EdgeInsets.all(AppPadding.p8),
                 child: GetProperCircle(
@@ -49,7 +62,15 @@ class GetBottomSheetWidget extends StatelessWidget {
               width: AppSize.s20,
               child: SvgPicture.asset(ImageAssets.rightArrow),
             ),
-            onTap: () {},
+            onTap: () {
+              pageController.animateToPage(
+                nextIndex(),
+                duration: Duration(
+                  milliseconds: DurationConsts.d300,
+                ),
+                curve: Curves.bounceInOut,
+              );
+            },
           ),
         ),
       ],
